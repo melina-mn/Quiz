@@ -1,35 +1,39 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from 'react';
+import './Components/Quiz/Quiz.css';
+import { data } from './assets/data';
 
-function App() {
-  const [count, setCount] = useState(0)
+const Quiz = () => {
+  let [index, setIndex] = useState(0); 
+
+  let [question, setQuestion] = useState(data[index]);
+
+  const checkAns = (e, ans) => {
+    if (question.ans === ans) {
+      e.target.classList.add("correct");
+    } else {
+      e.target.classList.add("wrong");
+    }
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className='container'>
+      <h1>Quiz App</h1>
+      <hr />
+      <h2>{index + 1}. {question.question}</h2>
+      <div className='box'>
+        <ul>
+          <li onClick={(e) => { checkAns(e, 1) }}>{question.option1}</li>
+          <li onClick={(e) => { checkAns(e, 2) }}>{question.option2}</li>
+        </ul>
+        <ul>
+          <li onClick={(e) => { checkAns(e, 3) }}>{question.option3}</li>
+          <li onClick={(e) => { checkAns(e, 4) }}>{question.option4}</li>
+        </ul>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+      <button>Next</button>
+      <div className='index'>1 of 3</div>
+    </div>
+  );
+};
 
-export default App
+export default Quiz;
